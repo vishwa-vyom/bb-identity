@@ -8,7 +8,7 @@
   ],
   "consentVerified": false,
   "authResult": {
-    "verified": false,
+    "verified": true,
     "tokenId": "stringstring",
     "kycCredential": {
       "issuer": "string",
