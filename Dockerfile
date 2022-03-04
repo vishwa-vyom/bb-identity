@@ -24,20 +24,11 @@ COPY --from=ts-compiler /usr/app/dist ./dist
 # Install production deps
 RUN yarn --production
 
-
-# Build app image off distroless image
-#FROM gcr.io/distroless/nodejs:16
-#WORKDIR /usr/app
-#COPY --from=ts-remover /usr/app .
-
 ENV NODE_ENV production
 
 USER 1000
 
 # Expose the server
-EXPOSE 3000
+EXPOSE 8081
 
 CMD [ "yarn", "start"]
-
-# Start the server (distroless)
-# CMD [ "/usr/app/index.js" ]
