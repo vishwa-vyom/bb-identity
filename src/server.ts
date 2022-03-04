@@ -96,7 +96,7 @@ app.post('/api/authenticate', (req: Request, res: Response) => {
 });
 
 // Publish openapi
-app.get('/openapi', (req: Request, res: Response) => {
+app.get('/api/openapi.json', (req: Request, res: Response) => {
     // const jwt = req.signedCookies[cookieProps.key];
     // if (!jwt) {
     //     return res.redirect('/');
