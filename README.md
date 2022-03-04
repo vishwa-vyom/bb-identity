@@ -6,7 +6,7 @@ This building block is a reference implementation of the [OpenAPI specification]
 
 1. Pull down a copy of this git repo and install node via npm and install packages, e.g. `$ nvm install; yarn`.
 
-2. Start the server in dev mode with `$ npm run start:dev`. See package.json for other commands.
+2. Start the server in dev mode with `$ yarn start:dev`. Use `yarn test` to run tests. See package.json for other commands.
 
 3. To build a docker image, use `$ docker-compose build`.
 
@@ -20,7 +20,7 @@ We are using [Digital Ocean Apps](https://cloud.digitalocean.com/apps/8dbc01d0-8
 
 2. Select the Source tab
 
-3. Change the tag and click the 'Save' button. To automatically deploy the latest version built off of the main branch, use the `latest` tag.
+3. Change the tag and click the 'Save' button. Use the `latest` tag to deploy the latest version automatically built off of the main branch by docker hub.
 
 ### Operations
 
