@@ -1,0 +1,59 @@
+{
+  "version": "string",
+  "responseTime": "string",
+  "transactionId": "TXN123456789",
+  "purpose": "string",
+  "factorsVerified": [
+    "string"
+  ],
+  "consentVerified": false,
+  "authResult": {
+    "verified": false,
+    "tokenId": "stringstring",
+    "kycCredential": {
+      "issuer": "string",
+      "id": "string",
+      "issuedTo": "string",
+      "issuanceDate": "2022-03-04T09:25:07.763Z",
+      "protectedAttributes": [
+        "string"
+      ],
+      "credentialSubject": {
+        "id": "stringstri",
+        "idOf": [
+          {
+            "attributeName": "string",
+            "value": "string",
+            "language": "str"
+          }
+        ]
+      },
+      "type": [
+        "[\"VerifiableCredential\", \"AlumniCredential\"]"
+      ],
+      "consent": {
+        "type": "linked",
+        "data": "string",
+        "schema": "string",
+        "signUri": "string",
+        "linkUri": "string"
+      },
+      "proof": {
+        "type": "RsaSignature2018",
+        "created": "2022-03-04T09:25:07.763Z",
+        "proofPurpose": "string",
+        "verificationMethod": "string",
+        "jws": "string"
+      }
+    },
+    "kycUri": "string"
+  },
+  "errors": [
+    {
+      "code": "string",
+      "message": "string",
+      "language": "string",
+      "action": "string"
+    }
+  ]
+}

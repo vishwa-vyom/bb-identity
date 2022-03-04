@@ -84,6 +84,16 @@ app.get('/chat', (req: Request, res: Response) => {
     }
 });
 
+// Super dumb authenticate route per example in https://app.swaggerhub.com/apis/GovStack/verification/1.0-oas3-oas3#/default/post-authenticate
+app.post('/api/authenticate', (req: Request, res: Response) => {
+    // TODO: add auth
+    // const jwt = req.signedCookies[cookieProps.key];
+    // if (!jwt) {
+    //     return res.redirect('/');
+    // } else {
+    return res.sendFile('authenticateResponse.json', {root: viewsDir});
+    // }
+});
 
 
 /************************************************************************************

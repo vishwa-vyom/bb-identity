@@ -11,6 +11,9 @@ Time is of the essence, so I'll just use a generator and add a basic route manua
 $ npx express-generator-typescript --with-auth --socket-io --use-yarn "IDBuildingBlock"
 ```
 
+I added the example API from [](https://app.swaggerhub.com/apis/GovStack/verification/1.0-oas3-oas3#/default/post-authenticate) to the generated server.
+
+To start the server in dev mode, us `$ npm run start:dev`. See package.json for other commands.
 
 ## Generating from an openapi spec
 
