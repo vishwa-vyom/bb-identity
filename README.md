@@ -22,6 +22,13 @@ We are using [Digital Ocean Apps](https://cloud.digitalocean.com/apps/8dbc01d0-8
 
 3. Change the tag and click the 'Save' button. To automatically deploy the latest version built off of the main branch, use the `latest` tag.
 
+### Operations
+
++ Alerting is configured in the [app settings](https://cloud.digitalocean.com/apps/8dbc01d0-8425-4fde-a1d4-7e7f9b404ae4/settings?i=a99fae).
+
++ Docker hub is configured for [automated builds](https://hub.docker.com/repository/docker/govstack/idbuildingblock/builds) and [vulnerability scanning](https://hub.docker.com/repository/docker/govstack/idbuildingblock/tags?page=1&ordering=last_updated)
+
+
 ## Dev notes
 
 Time is of the essence, so I'll just use a generator and add a basic route manually for now...
