@@ -95,6 +95,15 @@ app.post('/api/authenticate', (req: Request, res: Response) => {
     // }
 });
 
+// Publish openapi
+app.get('/openapi', (req: Request, res: Response) => {
+    // const jwt = req.signedCookies[cookieProps.key];
+    // if (!jwt) {
+    //     return res.redirect('/');
+    // } else {
+        return res.sendFile('GovStack-verification-1.0-oas3-oas3-resolved.json', {root: viewsDir});
+    // }
+});
 
 /************************************************************************************
  *                                   Setup Socket.io
