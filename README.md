@@ -1,7 +1,6 @@
-# IDBuildingBlock
+# ID Building Block
 
-This building block implements the [OpenAPI specification](https://github.com/GovStackWorkingGroup/BuildingBlockAPI/tree/main/IDV) for the [ID Building block](https://docs.google.com/document/d/1Fvt6Y6h2yd4JeoSNAZnemnQQqdOTlje3bA1bGnGXLcU/edit).
-
+This building block is a reference implementation of the [OpenAPI specification](https://github.com/GovStackWorkingGroup/BuildingBlockAPI/tree/main/IDV) for the [ID Building block](https://docs.google.com/document/d/1Fvt6Y6h2yd4JeoSNAZnemnQQqdOTlje3bA1bGnGXLcU/edit).
 
 ## Building and running the server
 
@@ -15,15 +14,13 @@ This building block implements the [OpenAPI specification](https://github.com/Go
 
 ## Deploying the server
 
-We are using [Digital Ocean Apps](https://cloud.digitalocean.com/apps/8dbc01d0-8425-4fde-a1d4-7e7f9b404ae4/overview) to deploy docker images via [Docker Hub](https://hub.docker.com/repository/docker/govstack/idbuildingblock).
-
-To deploy:
+We are using [Digital Ocean Apps](https://cloud.digitalocean.com/apps/8dbc01d0-8425-4fde-a1d4-7e7f9b404ae4/overview) to deploy docker images built locally and automatically via [Docker Hub](https://hub.docker.com/repository/docker/govstack/idbuildingblock). To deploy a new version:
 
 1. Visit [the DO app](https://cloud.digitalocean.com/apps/8dbc01d0-8425-4fde-a1d4-7e7f9b404ae4/settings/govstack-idbuildingblock?i=a99fae)
 
 2. Select the Source tab
 
-3. Change the tag and click the 'Save' button.
+3. Change the tag and click the 'Save' button. To automatically deploy the latest version built off of the main branch, use the `latest` tag.
 
 ## Dev notes
 
