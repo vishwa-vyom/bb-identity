@@ -1,6 +1,6 @@
 {
   "name": "IDBuildingBlock",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "scripts": {
     "build": "./node_modules/.bin/ts-node build.ts",
     "lint": "eslint . --ext .ts",
