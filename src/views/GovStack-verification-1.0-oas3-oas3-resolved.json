@@ -11,7 +11,7 @@
   },
   "servers": [
     {
-      "url": "https://id1.egovstack.net"
+      "url": "https://id1.egovstack.net/api"
     }
   ],
   "paths": {
