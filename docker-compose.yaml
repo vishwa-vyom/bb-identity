@@ -6,6 +6,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: govstack/idbuildingblock:release-0.0.3
+    image: govstack/idbuildingblock:release-0.0.4
     ports:
       - '8081:8081'
