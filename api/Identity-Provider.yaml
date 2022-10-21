@@ -4,32 +4,35 @@ x-stoplight:
 info:
   title: Identity Provider
   version: '1.0'
-  contact: info@mosip.io
+  contact:
+    name: MOSIP Team
+    email: info@mosip.io
+    url: 'https://www.mosip.io/'
   description: |-
-    <b>Abbreviations:</b></br>
+    This API document details on the below categories of endpoints
+    <ul>
+    <li> Management - Endpoints for creation and updation of OIDC client details </li>
+    <li> OIDC - All OIDC compliant endpoints for performing the Open ID Connect flows</li>
+    <li> UI - All endpoints used by the UI application </li>
+    </ul>
+
+    <b>Abbreviations:</b></br></br>
     OIDC - Open ID Connect</br>
     IdP - Identity provider</br>
     PMP - Partner Management portal</br>
     KYC - Know Your Customer</br>
     IDA - Authentication server</br>
+    UIN - Unique Identification Number</br>
+    VID - Virtual Identifier</br>
+    PSUT - Partner(Relying Party) Specific User Token</br>
 
-
-    </br>
-    <b>Initial Setup:</b>
-    </br>
-    1. Generate IdP root key.
-    </br> 
-    2. Generate IdP master keys.
-
-        -> IDP_SERVICE used to sign id_token and access_token.
-        
-        -> IDP_PARTNER used to onboard IDP as one of the MISP in PMP & IDA.
         
         
        
   license:
     name: MPL-2.0
     url: 'https://www.mozilla.org/en-US/MPL/2.0/'
+  summary: Open ID Connect based identity provider for large scale authentication
 servers:
   - url: 'https://dev.mosip.net/v1/idp'
 paths:
@@ -44,16 +47,10 @@ paths:
               type: object
               description: OIDC client details
               properties:
-                id:
-                  type: string
-                  description: Unique identifier assigned to this API
-                version:
-                  type: string
-                  description: API version
                 requestTime:
                   type: string
                   format: date-time
-                  pattern: 'yyyy-MM-dd''T''HH:mm:ss.SSS''Z'''
+                  pattern: ''
                   description: Current date and time when the request is sent
                 request:
                   type: object
@@ -154,22 +151,13 @@ paths:
                         type: string
                         enum:
                           - private_key_jwt
-                metadata:
-                  type: object
-                  properties:
-                    '':
-                      type: string
               required:
                 - requestTime
                 - request
             examples:
               example-1:
                 value:
-                  id: string
-                  version: string
                   requestTime: '2011-10-05T14:48:00.000Z'
-                  metadata:
-                    '': string
                   request:
                     clientId: e-health-service
                     clientName: Health Service
@@ -202,12 +190,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  id:
-                    type: string
-                    description: Unique identifier assigned to this API
-                  version:
-                    type: string
-                    description: API version
                   responseTime:
                     type: string
                     description: ate and time when the response is generated
@@ -266,12 +248,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  id:
-                    type: string
-                    description: Unique identifier assigned to this API
-                  version:
-                    type: string
-                    description: API version
                   responseTime:
                     type: string
                     description: Date and time when the response is generated
@@ -312,15 +288,9 @@ paths:
             schema:
               type: object
               properties:
-                id:
-                  type: string
-                  description: Unique identifier assigned to this API
-                version:
-                  type: string
-                  description: API version
                 requestTime:
                   type: string
-                  pattern: 'yyyy-MM-dd''T''HH:mm:ss.SSS''Z'''
+                  pattern: ''
                   description: Current date and time when the request is sent
                 request:
                   type: object
@@ -406,16 +376,12 @@ paths:
                         type: string
                         enum:
                           - private_key_jwt
-                metadata:
-                  type: object
               required:
                 - requestTime
                 - request
             examples:
               example-1:
                 value:
-                  id: string
-                  version: string
                   requestTime: '2022-09-22T08:03:45.000Z'
                   request:
                     clientName: Health Service
@@ -431,7 +397,6 @@ paths:
                       - authorization_code
                     clientAuthMethods:
                       - private_key_jwt
-                  metadata: {}
         description: ''
       tags:
         - Management
@@ -442,7 +407,7 @@ paths:
       description: |-
         The is the authorize endpoint of Open ID Connect (OIDC), the relying party applications will do a browser redirect to this endpoint with all required details passed as query parameters.
 
-        This endpoint will respond with a basic html page to load the JS application in the browser. JS application will then echo all the query parameters received in this endpoint to the "/authorization/oauth-details" endpoint as request body.
+        This endpoint will respond with a basic html page to load the JS application in the browser. UI JS application will then echo all the query parameters received in this endpoint to the "/authorization/oauth-details" endpoint as request body.
 
         All the validations on the query parameter values will actually be performed in the "/authorization/oauth-details" endpoint.
 
@@ -563,10 +528,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  id:
-                    type: string
-                  version:
-                    type: string
                   responseTime:
                     type: string
                   response:
@@ -582,7 +543,9 @@ paths:
                           Precedence of authFactors is based on its order  
                         type: array
                         items:
-                          $ref: '#/components/schemas/AuthFactor'
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/AuthFactor'
                       essentialClaims:
                         type: array
                         description: Array holds all the requested essential claims.
@@ -606,7 +569,9 @@ paths:
                       - authFactors
                       - essentialClaims
                   errors:
-                    type: array
+                    type:
+                      - array
+                      - 'null'
                     description: List of Errors in case of request validation / processing failure in Idp server.
                     items:
                       type: object
@@ -624,8 +589,6 @@ paths:
               examples:
                 example-1:
                   value:
-                    id: id
-                    version: '1.0'
                     responseTime: '2022-09-22T08:03:45.287Z'
                     response:
                       transactionId: vKb8cVbq9PX_yt46_hX0xlBJNExl9cnYtL8kGRxU5OM
@@ -650,15 +613,15 @@ paths:
                         sbi.threshold.iris: 40
                     errors: null
       description: |
-        OAuth details Endpoint is raised from the single page JS application on page load.
+        OAuth details request is raised from the UI JS application on page load.
 
-        OAuth details Endpoint validates the provided request parameters and resolves the required authentication factors. Combination of resolved authentication factors and the consent details are sent back as response with a unique transactionId.
+        OAuth details endpoint validates the provided request parameters and resolves the required authentication factors. Combination of resolved authentication factors and the consent details are sent back as response with a unique transactionId.
 
         The transcationId in the response is used to identify/maintain the enduser pre-auth session. This pre-auth session has timeout (configurable in Idp service).
 
         Authentication & authroization : None, starts the pre-auth session with unique transactionId.
 
-        All the query params passed to /authorize API MUST be sent to /oauth-details API. All these parameters MUST be validated in IDP before returning success response.
+        All the query params passed to /authorize API MUST be sent to /oauth-details endpoint. All these parameters will be validated in IdP before returning success response.
 
         1. Validates the clientId.
         2. validates redirectUri is one of the redirectUri during client create/update.
@@ -667,20 +630,16 @@ paths:
         5. scopes like profile, email and phone are allowed only if "openid" is also part of the requested scope.
         6. Claims request parameter is allowed, only if 'openid' is part of the scope request parameter
         7. claims considered only if part of registered claims.
-        8. ACR in claims request parameter is given the first priority over acr_values query pararmeter.if none of them are part of the registered acrs, Registered ACRs are only considered to derive the authfactors.
+        8. ACR in claims request parameter is given the first priority over acr_values query pararmeter.if none of them are part of the registered acrs, registered ACRs are only considered to derive the authfactors.
       requestBody:
         content:
           application/json:
             schema:
               type: object
               properties:
-                id:
-                  type: string
-                version:
-                  type: string
                 requestTime:
                   type: string
-                  pattern: 'yyyy-MM-dd''T''HH:mm:ss.SSS''Z'''
+                  pattern: ''
                 request:
                   type: object
                   required:
@@ -688,7 +647,6 @@ paths:
                     - responseType
                     - clientId
                     - redirectUri
-                    - nonce
                   properties:
                     scope:
                       type: string
@@ -702,6 +660,12 @@ paths:
                     redirectUri:
                       type: string
                       description: Redirection URI to which the response will be sent. This URI MUST exactly match one of the Redirection URI values for the Client pre-registered
+                    state:
+                      type: string
+                      description: client state value echoed.
+                    nonce:
+                      type: string
+                      description: Client's nonce value echoed.
                     display:
                       type: string
                       description: ASCII string value that specifies how the Authorization Server displays the authentication and consent user interface pages to the End-User.
@@ -721,22 +685,15 @@ paths:
                     claimsLocales:
                       type: string
                       description: 'End-User''s preferred languages and scripts for Claims being returned, represented as a space-separated list of BCP47 [RFC5646] language tag values, ordered by preference. An error SHOULD NOT result if some or all of the requested locales are not supported by the OpenID Provider.'
-                    state:
+                    uiLocales:
                       type: string
-                      description: client state value echoed.
-                    nonce:
-                      type: string
-                      description: Client's nonce value echoed.
-                metadata:
-                  type: object
+                      description: 'End-User''s preferred languages and scripts for the user interface, represented as a space-separated list of BCP47 [RFC5646] language tag values, ordered by preference. For instance, the value "fr-CA fr en" represents a preference for French as spoken in Canada, then French (without a region designation), followed by English (without a region designation). An error SHOULD NOT result if some or all of the requested locales are not supported by the OpenID Provider.'
               required:
                 - requestTime
                 - request
             examples:
               example-1:
                 value:
-                  id: id
-                  version: '1.0'
                   requestTime: '2022-09-22T08:01:10.000Z'
                   request:
                     clientId: healthservicev1
@@ -777,10 +734,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  id:
-                    type: string
-                  version:
-                    type: string
                   responseTime:
                     type: string
                   response:
@@ -809,26 +762,23 @@ paths:
                         errorMessage:
                           type: string
       description: |-
-        Send OTP Endpoint to connect to IDA with the provided UIN/VID to generate OTP. Returns status of OTP generation and sending the same to enduser over configured/chosen OTP channel.
+        When end user want to authenticate using OTP auth factor, he/she will enter their individual id (UIN/VID) and click on the "Generate OTP" button on the UI application. Then this endpoint will be invoked by the JS UI application.
 
-        Send OTP Endpoint is raised from the single page JS application.
+        Since the OTP generation and delivery to end user is to be handled by the integrated authentication system, the request will be relayed to the same.
 
-        Authentication & authroization : None, validates transactionId, must be same as the one started with oauth-details API.
+
+        Authentication & authroization : None, validates transactionId, must be same as the one received from oauth-details API.
 
         1. Validates the transactionId.
         2. Validates null / empty individualId.
-        3. Delegates the call to integrated IDA.
-        4. Relays error from IDA to UI on failure.
+        3. Delegates the call to integrated authentication system.
+        4. Relays error from authentication system to UI on failure.
       requestBody:
         content:
           application/json:
             schema:
               type: object
               properties:
-                id:
-                  type: string
-                version:
-                  type: string
                 requestTime:
                   type: string
                   pattern: 'yyyy-MM-dd''T''HH:mm:ss.SSS''Z'''
@@ -851,8 +801,6 @@ paths:
                         - sms
                       description: Channel to be used to deliver request OTP.
                       type: string
-                metadata:
-                  type: object
               required:
                 - requestTime
                 - request
@@ -873,10 +821,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  id:
-                    type: string
-                  version:
-                    type: string
                   responseTime:
                     type: string
                   response:
@@ -905,10 +849,6 @@ paths:
             schema:
               type: object
               properties:
-                id:
-                  type: string
-                version:
-                  type: string
                 requestTime:
                   type: string
                   pattern: 'yyyy-MM-dd''T''HH:mm:ss.SSS''Z'''
@@ -930,29 +870,27 @@ paths:
                       description: Authentication Challenge.
                       items:
                         $ref: '#/components/schemas/AuthChallenge'
-                metadata:
-                  type: object
               required:
                 - requestTime
                 - request
       description: |
-        Authentication endpoint, takes following input: user identifier (UIN/VID) and auth challenge.
+        Once end user provides the user identifier (UIN/VID) and all the required auth challenge to the UI application, this endpoint will be invoked.
 
         Supported auth-challenge depends on the integrated authentication server.
-
-        Mock-authentication-server : supports only <b>pin</b> based authentication.
 
         Authentication & authroization : None, validates transactionId, must be same as the one started with oauth-details API.
 
         1. Validates transactionId.
         2. Validates null / empty individualId.
-        3. invokes kyc-auth call to integrated authentication server (IDA).
+        3. Invokes kyc-auth call to integrated authentication server (IDA).
         4. Relays error from integrated authentication server to UI on failure.
 
 
         On Authentication Success: Only transaction Id is returned in the below response without any errors.
 
         On Authentication Failure: Error list will be set with the errors returned from the integrated authentication server.
+
+        Currently mock-authentication-server : supports only <b>pin</b> based authentication.
       parameters: []
       tags:
         - UI
@@ -962,24 +900,21 @@ paths:
       summary: Authorization Code Endpoint
       operationId: post-auth-code
       description: |-
-        This endpoint is invoked from JS application to send the accepted consent and permitted scopes.
+        Once the authentication is successful and user consent is obtained, this endpoint will be invoked by the UI application to send the accepted consent and permitted scopes.
 
-        Authentication & authroization : None, validates transactionId, must be same as the one started with oauth-details API.
+        Then UI application will receive the authorization code and few other details required for redirecting to the client / relying party application.
+
+
+        Authentication & authroization : None, validates transactionId, must be same as the one received from oauth-details API.
 
         1. Validates transactionId. If valid, stores the accepted claims and permitted scopes in the cache and returns back the authorization code.
-
-        TODO:
-        Validate accepted claims and permitted scopes in the request.
+        2. Validate accepted claims and permitted scopes in the request.
       requestBody:
         content:
           application/json:
             schema:
               type: object
               properties:
-                id:
-                  type: string
-                version:
-                  type: string
                 requestTime:
                   type: string
                   pattern: 'yyyy-MM-dd''T''HH:mm:ss.SSS''Z'''
@@ -1001,8 +936,6 @@ paths:
                       description: List of accepted essential and voluntary claims by end-user.
                       items:
                         type: string
-                metadata:
-                  type: object
               required:
                 - requestTime
                 - request
@@ -1015,10 +948,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  id:
-                    type: string
-                  version:
-                    type: string
                   responseTime:
                     type: string
                   response:
@@ -1065,10 +994,22 @@ paths:
                 properties:
                   id_token:
                     type: string
-                    description: Identity token.
+                    description: |-
+                      Identity token in JWT format. Will have the below claims in the payload.
+                      <ul>
+                      <li>iss</li>
+                      <li>sub - (PSUT)</li>
+                      <li>aud</li>
+                      <li>exp</li>
+                      <li>iat</li>
+                      <li>auth_time</li>
+                      <li>nonce</li>
+                      <li>acr</li>
+                      <li>at_hash</li>
+                      </ul>
                   access_token:
                     type: string
-                    description: The access token. The token that will be used to call the UserInfo endpoint.
+                    description: The access token in JWT format. This token that will be used to call the UserInfo endpoint.
                   token_type:
                     type: string
                     default: Bearer
@@ -1119,7 +1060,7 @@ paths:
                 required:
                   - error
       description: |-
-        Client invokes this Token endpoint with authorization code to get ID and access token.
+        Once the client / relying party application receives the authorization code through redirect, this OIDC complaint endpoint will be called from the relying party backend application to get the ID and access token.
 
         Authentication & authroization : validates the code (authorization code) in the request.
 
@@ -1127,7 +1068,7 @@ paths:
         2. clientAssertion is a signed JWT with Clients private key, corresponding public key should be shared with IdP during the OIDC client registration process.
         3. clientAssertion JWT payload must be as below: 
 
-        The JWT MUST contain the following REQUIRED Claim Values and MAY contain the following OPTIONAL Claim Values:
+        The JWT MUST contain the following REQUIRED Claim Values and MAY contain the additional OPTIONAL Claim Values:
 
         <b>iss</b>
 
@@ -1150,7 +1091,7 @@ paths:
         REQUIRED. Time at which the JWT was issued.
 
         <b>Note:</b>
-        The ClientAssertion JWT MAY contain other Claims. Any Claims used that are not understood MUST be ignored.
+        The ClientAssertion JWT can contain other Claims. Any Claims used that are not understood WILL be ignored.
       requestBody:
         content:
           application/json:
@@ -1225,8 +1166,6 @@ paths:
   /oidc/userinfo:
     get:
       summary: UserInfo Endpoint
-      tags:
-        - OIDC
       responses:
         '200':
           description: OK
@@ -1256,7 +1195,9 @@ paths:
           description: 'Need to have the Bearer access token,Must start with word Bearer.'
           required: true
       description: |-
-        The UserInfo Endpoint returns accepted Claims about the authenticated End-User. OIDC Client makes a request to the UserInfo Endpoint using an Access Token obtained through IDP's /token endpoint. Claims are returned as JSON, collection of name and value pairs for the Claims.
+        Once the access token is received via the token endpoint, relying party backend application will call this OIDC compliant endpoint to request for the user claims.
+
+        Consented user claims will be returned as a JWT. This JWT will be a nested JWT which is a signed using JWS and then encrypted using JWE. 
 
 
         Eg 1: OIDC Client requested claims 
@@ -1264,11 +1205,11 @@ paths:
         name : { "essential" : true }
         phone: { "essential" : true }
 
-        Response 1: Enduser after authentication, provided his/her consent to both name and phone. Response will look as below:
+        Response 1: Enduser after authentication, provided his/her consent to both name and phone. Post decryption, JWT payload will look as below:
 
         { "name" : "xyz", "phone" : "033456743" }
 
-        Resonse 2: Enduser after authentication, provided his/her consent to only name. Response will look as below:
+        Resonse 2: Enduser after authentication, provided his/her consent to only name. Post decryption, JWT payload will look as below:
 
         { "name" : "xyz" }
 
@@ -1276,18 +1217,21 @@ paths:
 
         { "name#en" : "xyz", "name#fr" : "xyz in french", "phone" : "033456743" } 
 
-        Userinfo Claims
-            sub - partner-specific user token (PSUT)
-            name
-            address
-            gender
-            birthdate
-            profile photo
-            email
-            phone
-            locale
-            Custom
-                individual_id (What we share in this claim is a system-level config and it can be UIN, perceptual VID or temporary VID)
+        <b>Supported Userinfo Claims</b>
+        <ul>
+        <li>sub - partner-specific user token (PSUT)</li>
+        <li>name</li>
+        <li>address</li>
+        <li>gender</li>
+        <li>birthdate</li>
+        <li>profile photo</li>
+        <li>email</li>
+        <li>phone</li>
+        <li>locale</li>
+        <li>Custom - individual_id (What we share in this claim is a system-level config and it can be UIN, perceptual VID or temporary VID)</li>
+        </ul>
+      tags:
+        - OIDC
     parameters: []
   /.well-known/openid-configuration:
     get:
@@ -1373,11 +1317,9 @@ paths:
                   - response_types_supported
       operationId: get-.well-known-openid-configuration
       description: |-
-        NOTE : Endpoint Under discussion
+        Open ID Connect dynamic provider discovery is not supported currently, this endpoint is only for facilitating the OIDC provider details in a standard way.
 
         Reference : https://openid.net/specs/openid-connect-discovery-1_0.html
-
-        TODO - https://www.rfc-editor.org/rfc/rfc5646.html
     parameters: []
   /.well-known/jwks.json:
     get:
@@ -1442,10 +1384,7 @@ paths:
                         - e
                         - 'n'
       operationId: get-certs
-      description: |-
-        NOTE : Endpoint Under discussion
-
-        Endpoint to fetch all the public keys of the IdP server.Returns public key set in the JWKS format.
+      description: Endpoint to fetch all the public keys of the IdP server.Returns public key set in the JWKS format.
     parameters: []
   /introspect:
     get:
@@ -1477,10 +1416,7 @@ paths:
                   - error
                   - error_description
       operationId: get-introspect
-      description: |-
-        NOTE : Endpoint Under discussion
-
-        This endpoint takes an access token or ID token and returns a boolean that indicates whether it is active. If the token is active, additional data about the token is also returned. If the token is invalid, expired, or revoked, it is considered inactive.
+      description: 'This endpoint takes an access token or ID token and returns a boolean that indicates whether it is active. If the token is active, additional data about the token is also returned. If the token is invalid, expired, or revoked, it is considered inactive.'
       parameters:
         - schema:
             type: string
@@ -1506,23 +1442,6 @@ paths:
     parameters: []
 components:
   schemas:
-    Error:
-      title: Error
-      x-stoplight:
-        id: et1b1aqs2g0r3
-      type: object
-      description: Any server-side errors are returned in this error object.
-      properties:
-        errorCode:
-          type: string
-          description: Predefined error codes.
-        errorMessage:
-          type: string
-          description: |
-            Descriptive error message.
-      required:
-        - errorCode
-        - errorMessage
     Claim:
       title: Claim
       x-stoplight:
@@ -1618,14 +1537,12 @@ components:
           type: string
           description: Name of the authentication method
           enum:
-            - otp
-            - pin
-            - pwd
-            - face
-            - iris
-            - finger
+            - PIN
+            - OTP
+            - L1-bio-device
+            - Wallet
         count:
-          type: string
+          type: integer
           description: 'Applicable for biometric based authentication, number of bio segments to be captured for authentication.'
         bioSubTypes:
           type: array
@@ -1638,8 +1555,6 @@ components:
 tags:
   - name: Management
     description: Management level api's used for internal use.
-  - name: OAuth
-    description: OAuth related api.
   - name: OIDC
     description: API's that are supposed to be compliant to OIDC.
   - name: UI
